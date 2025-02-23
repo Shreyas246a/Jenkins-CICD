@@ -11,6 +11,14 @@ tools{
             }
 
         }
+        stage('Dependency Audit'){
+            steps{
+                sh ''' 
+                npm audit --audit-level=critical
+                echo $?
+                '''
+            }
+        }
 
     }
 
