@@ -1,4 +1,4 @@
-Pipeline{
+pipeline{
 agent any
     stages{
         stage('VM node version'){
