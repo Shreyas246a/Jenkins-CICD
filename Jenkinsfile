@@ -11,7 +11,9 @@ tools{
             }
 
         }
-        stage('Dependency Audit'){
+        stage("Dependency Scanning"){
+            parallel{
+     stage('Dependency Audit'){
             steps{
                 sh ''' 
                 npm audit --audit-level=critical
@@ -19,6 +21,21 @@ tools{
                 '''
             }
         }
+        stage("OWASP dependency Check"){
+            steps{
+                dependencyCheck additionalArguments: ''' 
+                 --scan \'./\'
+                 --out \'./\'
+                 --format \'ALL\'
+                 --prettyPrint''',odcInstallation: 'OWASP-DEPCHECK-10'
+            }
+
+        }
+
+            }
+
+        }
+   
 
     }
 
