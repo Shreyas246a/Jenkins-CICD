@@ -1,12 +1,13 @@
 pipeline{
 agent any
+tools{
+    nodejs 'nodejs-23.8.0'
+    
+}
     stages{
-        stage('VM node version'){
+        stage('Installing dependencies'){
             steps{
-                sh ''' 
-                node -v
-                npm -v
-                '''
+                sh 'npm install --no-audit'
             }
 
         }
