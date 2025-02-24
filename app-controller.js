@@ -31,7 +31,7 @@ if (btn) {
 
 function func() {
     const planet_id = document.getElementById("planetID").value
-    console.log("onClick Submit - Request Planet ID - " + planet_id)
+    console.log("onClick  Submit - Request Planet ID - " + planet_id)
 
     fetch("/planet", {
             method: "POST",
