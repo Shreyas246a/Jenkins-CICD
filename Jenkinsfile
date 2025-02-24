@@ -11,6 +11,7 @@ tools{
             }
 
         }
+        
         stage("Dependency Scanning"){
             parallel{
      stage('Dependency Audit'){
