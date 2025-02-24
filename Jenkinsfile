@@ -28,7 +28,8 @@ tools{
                  --scan \'./\'
                  --out \'./\'
                  --format \'ALL\'
-                 --prettyPrint''',odcInstallation: 'OWASP-DEPCHECK-10'
+                 --prettyPrint
+                 --nvdApiKey fff36f39-5d8c-42bd-a8c9-7ddd807c8c46''',odcInstallation: 'OWASP-DEPCHECK-10'
             }
 
         }
