@@ -23,7 +23,13 @@ mongoose.connect(process.env.MONGO_URI, {
       //  c onsole.log("MongoDB Connection Successful")
     }
 })
-
+process.on("uncaughtException", (err) => {
+    console.error("Uncaught Exception:", err);
+  });
+  
+  process.on("unhandledRejection", (reason, promise) => {
+    console.error("Unhandled Rejection:", reason);
+  });
 var Schema = mongoose.Schema;
 
 var dataSchema = new Schema({
