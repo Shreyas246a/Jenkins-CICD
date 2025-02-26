@@ -6,6 +6,9 @@ tools{
 environment {
   MONGO_URI = "mongodb+srv://cluster0.1jprpwp.mongodb.net/superdata"
 }
+options {
+  disableConcurrentBuilds abortPrevious: true
+}
 stages{
         stage('Installing dependencies'){
             steps{
