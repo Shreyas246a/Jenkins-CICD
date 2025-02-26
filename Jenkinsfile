@@ -9,7 +9,6 @@ tools{
             steps{
                 sh 'npm install --no-audit'
             }
-
         }
         
         stage("Dependency Scanning"){
