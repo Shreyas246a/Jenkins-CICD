@@ -66,7 +66,6 @@ stages{
             }
         stage('SonarQube Scanning'){
             steps{
-            sh '$SONARQUBE_SCANNER_HOME'
             sh ''' 
             $SONARQUBE_SCANNER_HOME/bin/sonar-scanner \
             -Dsonar.projectKey=Solar-system-project \
