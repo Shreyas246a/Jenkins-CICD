@@ -5,6 +5,8 @@ tools{
       }
 environment {
   MONGO_URI = "mongodb+srv://cluster0.1jprpwp.mongodb.net/superdata"
+  MONGO_USERNAME=credentials('mongo-db-username')
+  MONGO_PASSWORD=credentials('monogo-db-password')
 }
 options {
   disableConcurrentBuilds abortPrevious: true
@@ -47,16 +49,15 @@ stages{
         }
         stage("Unit testing"){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'Mongo-db-creds', passwordVariable: 'MONGO_PASSWORD', usernameVariable: 'MONGO_USERNAME')]) {
+                     sh 'echo $MONGO_USERNAME'
+                     sh 'echo $MONGO_PASSWORD'
                      sh 'npm test'
-                    }
                 junit allowEmptyResults: true, keepProperties: true, stdioRetention: 'ALL', testResults: 'test-results.xml'
                 }
              }
         
         stage("Code Coverage"){
-            steps{
-                  withCredentials([usernamePassword(credentialsId: 'Mongo-db-creds', passwordVariable: 'MONGO_PASSWORD', usernameVariable: 'MONGO_USERNAME')]) {
+            steps{ 
                     catchError(buildResult: 'SUCCESS', message: 'Fixing in future', stageResult: 'UNSTABLE') {
                                              sh 'npm run coverage'
                     }
