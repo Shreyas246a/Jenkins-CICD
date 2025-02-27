@@ -64,7 +64,7 @@ stages{
                     }
 
             }
-        stage('Installing dependencies'){
+        stage('SonarQube Scanning'){
             steps{
             sh '$SONARQUBE_SCANNER_HOME'
             sh ''' 
