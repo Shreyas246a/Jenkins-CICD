@@ -7,6 +7,7 @@ environment {
   MONGO_URI = "mongodb+srv://cluster0.1jprpwp.mongodb.net/superdata"
   MONGO_USERNAME=credentials('mongo-db-username')
   MONGO_PASSWORD=credentials('monogo-db-password')
+  SONARQUBE_SCANNER_HOME = tool 'sonarqube-scanner-610'
 }
 options {
   disableConcurrentBuilds abortPrevious: true
@@ -16,11 +17,11 @@ stages{
             steps{
                 sh 'npm install --no-audit'
             }
-        }
+           }
         
         stage("Dependency Scanning"){
             parallel{
-     stage('Dependency Audit'){
+           stage('Dependency Audit'){
             steps{
                 sh ''' 
                 npm audit --audit-level=critical
@@ -36,7 +37,7 @@ stages{
                  --format \'ALL\'
                  --prettyPrint
                  --nvdApiKey fff36f39-5d8c-42bd-a8c9-7ddd807c8c46''',odcInstallation: 'OWASP-DEPCHECK-10'
-                  
+  
                  dependencyCheckPublisher failedTotalCritical: 1, failedTotalHigh: 2, failedTotalLow: 90, failedTotalMedium: 4, pattern: 'dependency-check-report.xml', stopBuild: true
                 
                     }
@@ -45,7 +46,7 @@ stages{
 
                     }
 
-        }
+              }
         stage("Unit testing"){
             steps{
                      sh 'echo $MONGO_USERNAME'
@@ -63,6 +64,19 @@ stages{
                     }
 
             }
+        stage('Installing dependencies'){
+            steps{
+            sh '$SONARQUBE_SCANNER_HOME'
+            sh ''' 
+            $SONARQUBE_SCANNER_HOME/bin/sonar-scanner \
+            -Dsonar.projectKey=Solar-system-project \
+            -Dsonar.sources=app.js \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.token=sqp_11d1cc900107067e3eaf02ea198ecfb6d2328b60
+            '''
+            }
+            }
+
         }
 
 post {
