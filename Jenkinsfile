@@ -53,6 +53,14 @@ stages{
                 junit allowEmptyResults: true, keepProperties: true, stdioRetention: 'ALL', testResults: 'test-results.xml'
                 }
              }
+        
+        stage("Code Coverage"){
+            steps{
+                  withCredentials([usernamePassword(credentialsId: 'Mongo-db-creds', passwordVariable: 'MONGO_PASSWORD', usernameVariable: 'MONGO_USERNAME')]) {
+                     sh 'npm run coverage'
+                    }
+            }
+        }
    
 
     }
