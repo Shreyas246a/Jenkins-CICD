@@ -1,4 +1,4 @@
-pipeline{
+pipeline {
 agent any
 tools{
     nodejs 'nodejs-23.8.0'  
@@ -61,8 +61,9 @@ stages{
                     catchError(buildResult: 'SUCCESS', message: 'Fixing in future', stageResult: 'UNSTABLE') {
                                              sh 'npm run coverage'
                     }
+                     publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'coverage/lcov-report', reportFiles: 'index.html', reportName: 'Code coverage HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+
                     }
-                 publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'coverage/lcov-report', reportFiles: 'index.html', reportName: 'Code coverage HTML Report', reportTitles: '', useWrapperFileDirectly: true])
 
             }
         }
