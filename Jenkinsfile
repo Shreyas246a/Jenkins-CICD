@@ -71,7 +71,7 @@ stages{
             -Dsonar.projectKey=Solar-system-project \
             -Dsonar.sources=app.js \
             -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             -Dsonar.token=sqp_11d1cc900107067e3eaf02ea198ecfb6d2328b60
             '''
             }
