@@ -78,15 +78,25 @@ stages{
               }
             }
             }
+        
         stage("Docker Image"){
             steps{
             sh 'printenv'
-            sh 'docker build -t shreyas246/solar-system:$GIT_COMMIT .'
+            sh 'docker build -t shreyas246/solar-systemGIT_COMMIT:$ .'
             }
             }
+        stage("Docker image push"){
+          steps{
+            withDockerRegistry(credentialsId: 'Docker-Creds', url: '""') {
+            sh 'docker push shreyas246/solar-systemGIT_COMMIT:$'
+          }
+        }
+        }
+       
+       
+       
+        }
 
-
-            }
 
 post {
   always {
