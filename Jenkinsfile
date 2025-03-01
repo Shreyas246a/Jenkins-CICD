@@ -50,8 +50,6 @@ stages{
               }
         stage("Unit testing"){
             steps{
-                     sh 'echo $MONGO_USERNAME'
-                     sh 'echo $MONGO_PASSWORD'
                      sh 'npm test'
                 }
              }
@@ -59,7 +57,7 @@ stages{
         stage("Code Coverage"){
             steps{ 
                     catchError(buildResult: 'SUCCESS', message: 'Fixing in future', stageResult: 'UNSTABLE') {
-                                             sh 'npm run coverage'
+                      sh 'npm run coverage'
                     }
 
                     }
@@ -80,14 +78,15 @@ stages{
               }
             }
             }
+        stage("Docker Image"){
+            steps{
+            sh 'printenv'
+            sh 'docker build -t shreyas246/solar-system:$GIT_COMMIT .'
+            }
+            }
+
 
             }
-        stage("Docker Image"){
-          steps{
-          sh 'printenv'
-          sh 'docker build -t shreyas246/solar-system:$GIT_COMMIT .'
-          }
-          }
 
 post {
   always {
