@@ -83,9 +83,11 @@ stages{
 
             }
         stage("Docker Image"){
+          steps{
           sh 'printenv'
           sh 'docker build -t shreyas246/solar-system:$GIT_COMMIT .'
-         }
+          }
+          }
 
 post {
   always {
