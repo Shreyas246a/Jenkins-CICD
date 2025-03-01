@@ -68,16 +68,16 @@ stages{
         stage('SonarQube Scanning'){
             steps{
               withSonarQubeEnv('sonar-qube-server') {
-
-              sh ''' 
+            sh ''' 
             $SONARQUBE_SCANNER_HOME/bin/sonar-scanner \
             -Dsonar.projectKey=Solar-system-project \
             -Dsonar.sources=app.js \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
             '''
             }
-            }
             waitForQualityGate abortPipeline: true
+            }
+            
             }
 
         }
