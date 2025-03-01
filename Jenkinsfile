@@ -36,6 +36,7 @@ stages{
             --out \'./\'
                  --format \'ALL\'
                  --prettyPrint
+                 --disableYarnAudit \
                  --nvdApiKey fff36f39-5d8c-42bd-a8c9-7ddd807c8c46''',odcInstallation: 'OWASP-DEPCHECK-10'
   
                  dependencyCheckPublisher failedTotalCritical: 1, failedTotalHigh: 2, failedTotalLow: 90, failedTotalMedium: 4, pattern: 'dependency-check-report.xml', stopBuild: true
@@ -66,14 +67,15 @@ stages{
             }
         stage('SonarQube Scanning'){
             steps{
-            sh ''' 
+              withSonarQubeEnv('sonar-qube-server') {
+
+              sh ''' 
             $SONARQUBE_SCANNER_HOME/bin/sonar-scanner \
             -Dsonar.projectKey=Solar-system-project \
             -Dsonar.sources=app.js \
-            -Dsonar.host.url=http://localhost:9000 \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
-            -Dsonar.token=sqp_11d1cc900107067e3eaf02ea198ecfb6d2328b60
             '''
+            }
             }
             }
 
