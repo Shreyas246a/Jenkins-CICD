@@ -65,7 +65,7 @@ stages{
             }
         stage('SonarQube Scanning'){
             steps{
-              timeout(time: 90, unit: 'SECONDS') {
+              timeout(time: 300, unit: 'SECONDS') {
               withSonarQubeEnv('sonar-qube-server') {
             sh ''' 
             $SONARQUBE_SCANNER_HOME/bin/sonar-scanner \
