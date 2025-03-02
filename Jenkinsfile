@@ -87,7 +87,7 @@ stages{
             }
         stage("Docker image push"){
           steps{
-            withDockerRegistry(credentialsId: 'Docker-Creds', url: '""') {
+            withDockerRegistry(credentialsId: 'Docker-Creds', url: "") {
             sh 'docker push shreyas246/solar-systemGIT_COMMIT:$'
           }
         }
