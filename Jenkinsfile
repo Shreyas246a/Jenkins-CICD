@@ -100,7 +100,7 @@ stages{
           steps{
           script { sshagent(['EC2-Key']) {
               sh '''
-                ssh -o StrictHostKeyChecking=no ubuntu2@13.201.81.185 "
+                ssh -o StrictHostKeyChecking=no ubuntu2@13.201.81.185 << EOF
                 if sudo docker ps -a | grep -q "solar-system";then
                 echo "Container found. Stopping..."
                   sudo docker stop "solar-system" && sudo docker rm "solar-system"
@@ -111,6 +111,7 @@ stages{
                 -e MONGO_USERNAME=$MONGO_USERNAME \
                 -e MONGO_PASSWORD=$MONGO_PASSWORD \
                 -p 3000:3000 -d shreyas246/solar-system:$GIT_COMMIT
+                EOF
               '''
               }
               }
