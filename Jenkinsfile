@@ -91,8 +91,12 @@ stages{
             sh 'docker push shreyas246/solar-system:$GIT_COMMIT'
           }
           }
-            }
+          }
+
         stage("AWS Deployment"){
+          when {
+          expression { env.BRANCH_NAME.startsWith('feature/') }
+          }
           steps{
           script { sshagent(['EC2-Key']) {
               sh '''
@@ -108,11 +112,16 @@ stages{
                 -e MONGO_PASSWORD=$MONGO_PASSWORD \
                 -p 3000:3000 -d shreyas246/solar-system:$GIT_COMMIT
               '''
-              }}
-          }
-          }
-            }  
+              }
+              }
+              }
 
+              }
+      
+      
+      
+}  
+ 
 post {
   always {
 
