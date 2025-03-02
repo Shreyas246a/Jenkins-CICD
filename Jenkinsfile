@@ -90,13 +90,28 @@ stages{
             withDockerRegistry(credentialsId: 'Docker-Creds', url: "") {
             sh 'docker push shreyas246/solar-system:$GIT_COMMIT'
           }
-        }
-        }
-       
-       
-       
-        }
-
+          }
+            }
+        stage("AWS Deployment"){
+          steps{
+          script { sshagent(['EC2-Key']) {
+              sh '''
+                ssh -o StrictHostKeyChecking=no ubuntu2@13.201.81.185 "
+                if sudo docker ps -a | grep -q "solar-system";then
+                echo "Container found. Stopping..."
+                  sudo docker stop "solar-system" && sudo docker rm "solar-system"
+                echo "Container stopped and removed."
+                fi 
+                sudo docker run --name solar-system \
+                -e MONGO_URI=$MONGO_URI \
+                -e MONGO_USERNAME=$MONGO_USERNAME \
+                -e MONGO_PASSWORD=$MONGO_PASSWORD \
+                -p 3000:3000 -d shreyas246/solar-system:$GIT_COMMIT
+              '''
+              }}
+          }
+          }
+            }  
 
 post {
   always {
@@ -108,7 +123,5 @@ post {
 
 
   }
+}  
 }
-   
-
-    }
