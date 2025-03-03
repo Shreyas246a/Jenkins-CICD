@@ -98,7 +98,7 @@ stages{
           expression { env.BRANCH_NAME.startsWith('feature/') }
           }
           steps{
-          script { sshagent(['EC2-Key']) {
+          script { sshagent(['aws-ec2-key']) {
               sh '''
                 ssh -o StrictHostKeyChecking=no ubuntu2@13.201.81.185 << EOF
                 if sudo docker ps -a | grep -q "solar-system";then
