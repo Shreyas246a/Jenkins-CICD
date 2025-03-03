@@ -100,7 +100,7 @@ stages{
           steps{
           script { sshagent(['EC2-Key']) {
               sh '''
-                ssh -o StrictHostKeyChecking=no ubuntu2@13.201.81.185 << EOF
+                ssh -o StrictHostKeyChecking=no ubuntu@13.201.81.185 << EOF
                 if sudo docker ps -a | grep -q "solar-system";then
                 echo "Container found. Stopping..."
                   sudo docker stop "solar-system" && sudo docker rm "solar-system"
