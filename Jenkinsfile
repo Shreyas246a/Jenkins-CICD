@@ -111,6 +111,7 @@ stages{
                 -e MONGO_USERNAME="$MONGO_USERNAME" \
                 -e MONGO_PASSWORD="$MONGO_PASSWORD" \
                 -p 3000:3000 -d shreyas246/solar-system:$GIT_COMMIT
+                "
               '''
               }
               }
