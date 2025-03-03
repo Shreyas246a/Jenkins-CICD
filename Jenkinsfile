@@ -100,16 +100,16 @@ stages{
           steps{
           script { sshagent(['EC2-Key']) {
               sh '''
-                ssh -o StrictHostKeyChecking=no ubuntu@13.201.81.185 << EOF
+                ssh -o StrictHostKeyChecking=no ubuntu@13.201.81.185 << 'EOF'
                 if sudo docker ps -a | grep -q "solar-system";then
                 echo "Container found. Stopping..."
                   sudo docker stop "solar-system" && sudo docker rm "solar-system"
                 echo "Container stopped and removed."
                 fi 
                 sudo docker run --name solar-system \
-                -e MONGO_URI=$MONGO_URI \
-                -e MONGO_USERNAME=$MONGO_USERNAME \
-                -e MONGO_PASSWORD=$MONGO_PASSWORD \
+                -e MONGO_URI="${MONGO_URI}" \
+                -e MONGO_USERNAME="${MONGO_USERNAME}" \
+                -e MONGO_PASSWORD="${MONGO_PASSWORD}" \
                 -p 3000:3000 -d shreyas246/solar-system:$GIT_COMMIT
                 EOF
               '''
@@ -117,15 +117,22 @@ stages{
               }
               }
               }
-          // stage("AWS Integration Testing"){
-          //   steps{
-          //     withAWS(region: 'ap-south-1',credentials:'aws-s3-ec2-lambda'){
-          //         'bash aws-integration-twst.sh'
+          stage("AWS Integration Testing"){
+            when {
+              expression { env.BRANCH_NAME.startsWith('feature/') }
+            }
+            steps{
+                  sh 'printenv | grep -i branch'
+              withAWS(region: 'ap-south-1',credentials:'aws-s3-ec2-lambda'){
+                  sh
+                  '''
+                  bash aws-integration-twst.sh
+                  '''
                 
-          //       } 
-          //     }
+                } 
+              }
 
-          // }
+          }
       
       
       
