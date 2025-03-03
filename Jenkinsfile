@@ -98,7 +98,7 @@ stages{
           expression { env.BRANCH_NAME.startsWith('feature/') }
           }
           steps{
-          script { sshagent(['aws-ec2-key']) {
+          script { sshagent(['EC2-Key']) {
               sh '''
                 ssh -o StrictHostKeyChecking=no ubuntu2@13.201.81.185 << EOF
                 if sudo docker ps -a | grep -q "solar-system";then
@@ -116,12 +116,23 @@ stages{
               }
               }
               }
-
               }
+          // stage("AWS Integration Testing"){
+          //   steps{
+          //     withAWS(region: 'ap-south-1',credentials:'aws-s3-ec2-lambda'){
+          //         'bash aws-integration-twst.sh'
+                
+          //       } 
+          //     }
+
+          // }
       
       
       
+
+
 }  
+
  
 post {
   always {
