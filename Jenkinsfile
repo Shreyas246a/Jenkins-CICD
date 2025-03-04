@@ -117,7 +117,7 @@ stages{
               }
               }
               }
-        stage("AWS Integration Testing"){
+        stage("AWS Integration Testing"){ 
             when {
               expression { env.BRANCH_NAME.startsWith('feature/') }
             }
