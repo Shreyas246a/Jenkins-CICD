@@ -1,5 +1,5 @@
 # Solar System NodeJS Application
-
+# Check Out enabling-cicd branch for all the ongoing files
 A simple HTML+MongoDB+NodeJS project to display Solar System and it's planets.
 
 ---
@@ -48,3 +48,34 @@ If the installation was successful, you should be able to run the following comm
 ## Access Application on Browser
     http://localhost:3000/
 
+ 
+## Features
+- RESTful API for planetary data
+- MongoDB database integration
+- CI/CD pipeline with Jenkins
+- Docker containerization
+- Automated security scanning and testing
+- Deployment to AWS EC2 (EKS in future)
+
+## Deployment
+The project is deployed using Jenkins and Docker. The pipeline automates:
+- Code quality checks
+- Security scans
+- Unit tests
+- Docker image builds and pushes
+- Deployment to AWS EC2
+
+## Future Enhancements
+- Integration with Kubernetes (EKS)
+- More robust logging and monitoring
+- Advanced authentication and authorization
+
+## Maintainers
+- **[Your Name]** - Developer & Maintainer
+
+## Acknowledgments
+- KodeKloud training courses for Git, Jenkins, and Docker
+- Open-source tools and libraries used in this project
+
+---
+Let me know if you need additional sections or modifications! 🚀
